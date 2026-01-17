@@ -12,6 +12,7 @@
 				inherit system;
 				config = {
 					allowUnfree = true;
+					android_sdk.accept_license = true;
 				};
 			};
 			node = pkgs.nodejs_24;
@@ -21,14 +22,16 @@
 					node
 					jdk17
 					android-tools
-					sdkmanager
-					androidenv.androidPkgs.emulator
+					androidsdk
 					];
 					shellHook = ''
 						echo "React shell ready: node=$(node --version)"
 						java -version
 						adb version
 						echo "sdkmanager = $(sdkmanager --version)"
+
+						export ANDROID_SDK_ROOT=${pkgs.androidsdk}/libexec/android-sdk
+						export ANDROID_HOME=${pkgs.androidsdk}/libexec/android-sdk
 					'';
 				};
 			}
